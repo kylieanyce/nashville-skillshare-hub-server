@@ -1,0 +1,9 @@
+[
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 1,
+        "fields": {
+            "label": "bicycles"
+        }
+    },
+]

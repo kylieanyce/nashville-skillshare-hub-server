@@ -1,0 +1,9 @@
+[
+    {
+        "model": "nashsshubapi.event_topic",
+        "pk": 1,
+        "fields": {
+            "topic": "bicycles"
+        }
+    },
+]

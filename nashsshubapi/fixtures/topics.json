@@ -1,0 +1,44 @@
+[
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 1,
+        "fields": {
+            "label": "bicycles"
+        }
+    },
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 2,
+        "fields": {
+            "label": "repair"
+        }
+    },
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 3,
+        "fields": {
+            "label": "taxes"
+        }
+    },
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 4,
+        "fields": {
+            "label": "cars"
+        }
+    },
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 5,
+        "fields": {
+            "label": "cooking"
+        }
+    },
+    {
+        "model": "nashsshubapi.bookmark",
+        "pk": 6,
+        "fields": {
+            "label": "spanish"
+        }
+    }
+]
