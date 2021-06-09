@@ -7,7 +7,7 @@ class Event(models.Model):
     title = models.CharField(max_length=100)
     date = models.DateField()
     time = models.TimeField()
-    cost = models.FloatField()
+    cost = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     description = models.TextField()
