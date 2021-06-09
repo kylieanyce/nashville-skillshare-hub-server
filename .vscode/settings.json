@@ -6,5 +6,9 @@
             "name": "nashsshub",
             "database": "db.sqlite3"
         }
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--django-settings-module=nashsshub.settings",
     ]
 }
