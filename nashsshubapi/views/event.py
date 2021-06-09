@@ -12,6 +12,31 @@ from nashsshubapi.models import Event, Host, Bookmark, Topic
 
 class EventView(ViewSet):
     """Nashville SkillShare Hub events"""
+    @action(methods=['post', 'delete'], detail=True)
+    # detail=True is for using the current action on a single event
+    # detail=False is for using the action on a list of events
+    def bookmark(self, request, pk=None):
+        """Managing users bookmarking events"""
+        user = request.auth.user
+        try:
+            event = Event.objects.get(pk=pk)
+        except Event.DoesNotExist:
+            return Response(
+                {'message': 'Event does not exist.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if request.method == "POST":
+            try:
+                event.bookmarks.add(user)
+                return Response({}, status=status.HTTP_201_CREATED)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
+        elif request.method == "DELETE":
+            try:
+                event.bookmarks.remove(user)
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
 
     def create(self, request):
         """Handle POST operations for events
@@ -100,14 +125,15 @@ class EventView(ViewSet):
         Returns:
             Response -- JSON serialized list of events
         """
+        user = request.auth.user
         events = Event.objects.all()
-        # for event in events:
-        #     event.joined = None
-        #     try:
-        #         GamerEvent.objects.get(event=event, gamer=gamer)
-        #         event.joined = True
-        #     except GamerEvent.DoesNotExist:
-        #         event.joined = False
+        for event in events:
+            event.bookmarks = None
+            try:
+                Bookmark.objects.get(event=event, user=user)
+                event.bookmarks = True
+            except Bookmark.DoesNotExist:
+                event.bookmarks = False
         # game = self.request.query_params.get('gameId', None)
         # if game is not None:
         #     events = events.filter(game__id=game)
