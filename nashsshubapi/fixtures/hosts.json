@@ -4,8 +4,7 @@
         "pk": 1,
         "fields": {
             "user": 3,
-            "event": 1,
-            "name": "Shelby Avenue Bicycle Shop"
+            "event": 1
         }
     },
     {
@@ -13,8 +12,7 @@
         "pk": 2,
         "fields": {
             "user": 5,
-            "event": 2,
-            "name": "The Elk's Lodge"
+            "event": 2
         }
     },
     {
@@ -22,8 +20,7 @@
         "pk": 3,
         "fields": {
             "user": 4,
-            "event": 3,
-            "name": "Auto Repair for Women"
+            "event": 3
         }
     },
     {
@@ -31,8 +28,7 @@
         "pk": 4,
         "fields": {
             "user": 2,
-            "event": 4,
-            "name": "George Foreman"
+            "event": 4
         }
     }
 ]

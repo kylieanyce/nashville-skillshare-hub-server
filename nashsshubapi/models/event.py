@@ -11,6 +11,17 @@ class Event(models.Model):
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     description = models.TextField()
+    hostname = models.CharField(max_length=100)
     hosts = models.ManyToManyField(User, through="Host", related_name="events")
-    topics = models.ManyToManyField("Topic", through="EventTopic", related_name="events")
-    bookmarks = models.ManyToManyField(User, through="Bookmark", related_name="bookmarks")
+    topics = models.ManyToManyField(
+        "Topic", through="EventTopic", related_name="events")
+    bookmarks = models.ManyToManyField(
+        User, through="Bookmark", related_name="bookmarks")
+
+    @property
+    def bookmarks(self):
+        return self.__bookmarks
+
+    @bookmarks.setter
+    def bookmarks(self, value):
+        self.__bookmarks = value

@@ -10,6 +10,7 @@
             "location": "Shelby Ave Bicycle Shop",
             "address": "1615 Shelby Ave",
             "description": "Come learn how to change a tire, tighten tension chords, and fix your brakes. Bring your bike and we will do some hands-on repairs at the shop!",
+            "hostname": "Shelby Ave Bicycle Shop",
             "topics": [1],
             "bookmarks": [1, 4]
         }
@@ -25,6 +26,7 @@
             "location": "Elk's Lodge",
             "address": "45 Russel Street",
             "description": "We will be hosting a meal prep class at our lodge so we can support our canned food drive. The class will focus on quick, easy, and affordable meal prep work for busy people on a budget. Our veteran kitchen lead will be teaching you yummy meals that your kids will love! Free with the cost of one canned good per person. All ages welcome.",
+            "hostname": "Elk's Lodge Kitchen Crew",
             "topics": [5],
             "bookmarks": [2]
         }
@@ -40,6 +42,7 @@
             "location": "East End Community Center",
             "address": "505 Woodland Street",
             "description": "Edward, one of our long term volunteers, will be leading a class on how to change a flat tire. The class will cover the tools you need, where to buy them, and how to change a tire with variations for different abilities and vehicles. The event will be held in our back parking lot and is free to all ages.",
+            "hostname": "Auto Repair for Women",
             "topics": [2, 4] ,
             "bookmarks": [3]
         }
@@ -55,6 +58,7 @@
             "location": "Shelby Park Community Center",
             "address": "2000 Shelby Ave",
             "description": "Spanish for beginners! Open to all.",
+            "hostname": "Spanish Man",
             "topics": [6],
             "bookmarks": []
         }
