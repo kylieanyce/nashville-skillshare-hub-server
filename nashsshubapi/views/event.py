@@ -59,8 +59,8 @@ class EventView(ViewSet):
             event.save()
             hosts = request.auth.user
             event.hosts.add(hosts)
-            topics = Topic.objects.filter(pk__in=request.data["topicId"])
-            event.topics.set(topics)
+            # topics = Topic.objects.filter(pk__in=request.data["topicId"])
+            # event.topics.set(topics)
             serializer = EventSerializer(event, context={'request': request})
             return Response(serializer.data)
         except ValidationError as ex:
