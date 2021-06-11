@@ -4,8 +4,7 @@
         "pk": 1,
         "fields": {
             "title": "Bicycle Repair",
-            "date": "2021-06-25",
-            "time": "18:00",
+            "datetime": "2021-06-25 18:00:00+0800",
             "cost": "Free",
             "location": "Shelby Ave Bicycle Shop",
             "address": "1615 Shelby Ave",
@@ -20,8 +19,7 @@
         "pk": 2,
         "fields": {
             "title": "Cheap and Healthy Meal Prep",
-            "date": "2021-06-26",
-            "time": "10:00",
+            "datetime": "2021-06-25 12:00:00",
             "cost": "Free with canned good donation",
             "location": "Elk's Lodge",
             "address": "45 Russel Street",
@@ -36,8 +34,7 @@
         "pk": 3,
         "fields": {
             "title": "Fix a Flat",
-            "date": "2021-07-01",
-            "time": "09:00",
+            "datetime": "2021-07-25 10:00:00",
             "cost": "Free",
             "location": "East End Community Center",
             "address": "505 Woodland Street",
@@ -52,8 +49,7 @@
         "pk": 4,
         "fields": {
             "title": "Learn Spanish: Beginner",
-            "date": "2021-07-05",
-            "time": "18:00",
+            "datetime": "2021-07-05 18:00:00",
             "cost": "$5",
             "location": "Shelby Park Community Center",
             "address": "2000 Shelby Ave",

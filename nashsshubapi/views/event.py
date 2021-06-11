@@ -47,8 +47,7 @@ class EventView(ViewSet):
 
         event = Event()
         event.title = request.data["title"]
-        event.date = request.data["date"]
-        event.time = request.data["time"]
+        event.datetime = request.data["datetime"]
         event.cost = request.data["cost"]
         event.location = request.data["location"]
         event.address = request.data["address"]
@@ -87,8 +86,7 @@ class EventView(ViewSet):
         """
         event = Event.objects.get(pk=pk)
         event.title = request.data["title"]
-        event.date = request.data["date"]
-        event.time = request.data["time"]
+        event.datetime = request.data["datetime"]
         event.cost = request.data["cost"]
         event.location = request.data["location"]
         event.address = request.data["address"]
@@ -128,12 +126,12 @@ class EventView(ViewSet):
         user = request.auth.user
         events = Event.objects.all()
         for event in events:
-            event.bookmarks = None
+            event.bookmarked = None
             try:
                 Bookmark.objects.get(event=event, user=user)
-                event.bookmarks = True
+                event.bookmarked = True
             except Bookmark.DoesNotExist:
-                event.bookmarks = False
+                event.bookmarked = False
         # game = self.request.query_params.get('gameId', None)
         # if game is not None:
         #     events = events.filter(game__id=game)
@@ -163,6 +161,6 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'title', 'date', 'time',
+        fields = ('id', 'title', 'datetime',
                   'description', 'location', 'cost', 'address',
-                  'hosts', 'hostname', 'topics', 'bookmarks')
+                  'hosts', 'hostname', 'topics', 'bookmarked')
