@@ -38,6 +38,15 @@ class EventView(ViewSet):
             except Exception as ex:
                 return Response({'message': ex.args[0]})
 
+    @action(methods=['get'], detail=False)
+    def myevents(self, request, pk=None):
+        """Managing users managing their events"""
+        user = request.auth.user
+        myevents = user.events
+        serializer = EventSerializer(
+            myevents, many=True, context={'request': request})
+        return Response(serializer.data)
+
     def create(self, request):
         """Handle POST operations for events
 
