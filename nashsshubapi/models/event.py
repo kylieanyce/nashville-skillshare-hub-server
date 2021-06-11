@@ -5,8 +5,7 @@ from django.db.models.fields import related
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
-    date = models.DateField()
-    time = models.TimeField()
+    datetime = models.DateTimeField()
     cost = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
@@ -19,9 +18,9 @@ class Event(models.Model):
         User, through="Bookmark", related_name="bookmarks")
 
     @property
-    def bookmarks(self):
-        return self.__bookmarks
+    def bookmarked(self):
+        return self.__bookmarked
 
-    @bookmarks.setter
-    def bookmarks(self, value):
-        self.__bookmarks = value
+    @bookmarked.setter
+    def bookmarked(self, value):
+        self.__bookmarked = value
