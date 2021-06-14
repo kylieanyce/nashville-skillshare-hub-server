@@ -38,6 +38,15 @@ class EventView(ViewSet):
             except Exception as ex:
                 return Response({'message': ex.args[0]})
 
+    @action(methods=['get'], detail=False)
+    def myevents(self, request, pk=None):
+        """Managing users managing their events"""
+        user = request.auth.user
+        myevents = user.events
+        serializer = EventSerializer(
+            myevents, many=True, context={'request': request})
+        return Response(serializer.data)
+
     def create(self, request):
         """Handle POST operations for events
 
@@ -93,9 +102,9 @@ class EventView(ViewSet):
         event.description = request.data["description"]
         event.hostname = request.data["hostname"]
 
-        topics = Topic.objects.filter(pk__in=request.data["topics"])
+        # topics = Topic.objects.filter(pk__in=request.data["topics"])
         event.save()
-        event.topics.set(topics)
+        # event.topics.set(topics)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
