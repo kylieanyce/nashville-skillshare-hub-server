@@ -102,9 +102,9 @@ class EventView(ViewSet):
         event.description = request.data["description"]
         event.hostname = request.data["hostname"]
 
-        topics = Topic.objects.filter(pk__in=request.data["topics"])
+        # topics = Topic.objects.filter(pk__in=request.data["topics"])
         event.save()
-        event.topics.set(topics)
+        # event.topics.set(topics)
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
 
