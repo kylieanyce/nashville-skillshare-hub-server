@@ -80,9 +80,17 @@ class EventView(ViewSet):
         Returns:
             Response -- JSON serialized game instance
         """
+        user = request.auth.user
         try:
             event = Event.objects.get(pk=pk)
-            serializer = EventSerializer(event, context={'request': request})
+            try:
+                Host.objects.get(event=event, user=user)
+                event.organizers = True
+            except Host.DoesNotExist:
+                event.organizers = False
+
+            serializer = EventSerializer(
+                event,  context={'request': request})
             return Response(serializer.data)
         except Exception as ex:
             return HttpResponseServerError(ex)
@@ -141,9 +149,9 @@ class EventView(ViewSet):
                 event.bookmarked = True
             except Bookmark.DoesNotExist:
                 event.bookmarked = False
-        # game = self.request.query_params.get('gameId', None)
-        # if game is not None:
-        #     events = events.filter(game__id=game)
+            # game = self.request.query_params.get('gameId', None)
+            # if game is not None:
+            #     events = events.filter(game__id=game)
         serializer = EventSerializer(
             events, many=True, context={'request': request})
         return Response(serializer.data)
@@ -172,4 +180,4 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = ('id', 'title', 'datetime',
                   'description', 'location', 'cost', 'address',
-                  'hosts', 'hostname', 'topics', 'bookmarked')
+                  'hosts', 'hostname', 'topics', 'bookmarked', 'organizers')

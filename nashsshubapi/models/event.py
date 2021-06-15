@@ -24,3 +24,11 @@ class Event(models.Model):
     @bookmarked.setter
     def bookmarked(self, value):
         self.__bookmarked = value
+
+    @property
+    def organizers(self):
+        return self.__organizers
+
+    @organizers.setter
+    def organizers(self, value):
+        self.__organizers = value
