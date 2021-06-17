@@ -146,7 +146,8 @@ class EventView(ViewSet):
         search_text = self.request.query_params.get('q', None)
         if search_text is not None:
             events = events.filter(
-                Q(cost__icontains=search_text)
+                Q(cost__icontains=search_text) |
+                Q(datetime__icontains=search_text)
             )
         for event in events:
             event.bookmarked = None
