@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.http import HttpResponseServerError
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.viewsets import ViewSet
@@ -142,6 +143,12 @@ class EventView(ViewSet):
         """
         user = request.auth.user
         events = Event.objects.all()
+        search_text = self.request.query_params.get('q', None)
+        if search_text is not None:
+            events = events.filter(
+                Q(cost__icontains=search_text) |
+                Q(datetime__icontains=search_text)
+            )
         for event in events:
             event.bookmarked = None
             try:
@@ -149,6 +156,7 @@ class EventView(ViewSet):
                 event.bookmarked = True
             except Bookmark.DoesNotExist:
                 event.bookmarked = False
+
             # game = self.request.query_params.get('gameId', None)
             # if game is not None:
             #     events = events.filter(game__id=game)

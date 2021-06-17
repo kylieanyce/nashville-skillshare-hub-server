@@ -10,5 +10,6 @@
     "python.linting.pylintEnabled": true,
     "python.linting.pylintArgs": [
         "--django-settings-module=nashsshub.settings",
-    ]
+    ],
+    "python.pythonPath": "/home/kylieanyce/.local/share/virtualenvs/nashville-skillshare-hub-server-moWzZ7SH/bin/python"
 }
