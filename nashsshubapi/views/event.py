@@ -142,7 +142,7 @@ class EventView(ViewSet):
             Response -- JSON serialized list of events
         """
         user = request.auth.user
-        events = Event.objects.all()
+        events = Event.objects.order_by('datetime')
         search_text = self.request.query_params.get('q', None)
         if search_text is not None:
             events = events.filter(
