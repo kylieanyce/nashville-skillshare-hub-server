@@ -29,12 +29,14 @@ class EventView(ViewSet):
         if request.method == "POST":
             try:
                 event.bookmarks.add(user)
+                event.bookmarked = True
                 return Response({}, status=status.HTTP_201_CREATED)
             except Exception as ex:
                 return Response({'message': ex.args[0]})
         elif request.method == "DELETE":
             try:
                 event.bookmarks.remove(user)
+                event.bookmarked = False
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             except Exception as ex:
                 return Response({'message': ex.args[0]})
@@ -43,15 +45,13 @@ class EventView(ViewSet):
     def mybookmarks(self, request, pk=None):
         """Managing users listing bookmarked events"""
         user = request.auth.user
-        events = user.events
-        if request.method == "GET":
-            try:
-                events.bookmarks.list(user)
-                serializer = EventSerializer(
-                    events, many=True, context={'request': request})
-                return Response(serializer.data)
-            except Exception as ex:
-                return Response({'message': ex.args[0]})
+        events = user.bookmarks
+        try:
+            serializer = EventSerializer(
+                events, many=True, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return Response({'message': ex.args[0]})
 
     @action(methods=['get'], detail=False)
     def myevents(self, request, pk=None):
@@ -98,6 +98,11 @@ class EventView(ViewSet):
         user = request.auth.user
         try:
             event = Event.objects.get(pk=pk)
+            try:
+                Bookmark.objects.get(event=event, user=user)
+                event.bookmarked = True
+            except Bookmark.DoesNotExist:
+                event.bookmarked = False
             try:
                 Host.objects.get(event=event, user=user)
                 event.organizers = True
@@ -163,14 +168,13 @@ class EventView(ViewSet):
                 Q(cost__icontains=search_text) |
                 Q(datetime__icontains=search_text)
             )
-        for event in events:
-            event.bookmarked = None
-            try:
-                Bookmark.objects.get(event=event, user=user)
-                event.bookmarked = True
-            except Bookmark.DoesNotExist:
-                event.bookmarked = False
-
+            for event in events:
+                event.bookmarks = None
+                try:
+                    Bookmark.objects.get(event=event, user=user)
+                    event.bookmarked = True
+                except Bookmark.DoesNotExist:
+                    event.bookmarked = False
             # game = self.request.query_params.get('gameId', None)
             # if game is not None:
             #     events = events.filter(game__id=game)
@@ -202,4 +206,5 @@ class EventSerializer(serializers.ModelSerializer):
         model = Event
         fields = ('id', 'title', 'datetime',
                   'description', 'location', 'cost', 'address',
-                  'hosts', 'hostname', 'topics', 'bookmarked', 'organizers')
+                  'hosts', 'hostname', 'topics', 'bookmarks',
+                  'bookmarked', 'organizers')
