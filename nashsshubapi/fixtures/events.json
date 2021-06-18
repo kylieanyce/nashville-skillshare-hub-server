@@ -50,7 +50,7 @@
         "fields": {
             "title": "Learn Spanish: Beginner",
             "datetime": "2021-07-05 18:00:00",
-            "cost": "$5",
+            "cost": "5",
             "location": "Shelby Park Community Center",
             "address": "2000 Shelby Ave",
             "description": "Spanish for beginners! Open to all.",

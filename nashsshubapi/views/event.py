@@ -13,7 +13,7 @@ from nashsshubapi.models import Event, Host, Bookmark, Topic
 
 class EventView(ViewSet):
     """Nashville SkillShare Hub events"""
-    @action(methods=['post', 'delete'], detail=True)
+    @action(methods=['get', 'post', 'delete'], detail=True)
     # detail=True is for using the current action on a single event
     # detail=False is for using the action on a list of events
     def bookmark(self, request, pk=None):
@@ -29,15 +29,29 @@ class EventView(ViewSet):
         if request.method == "POST":
             try:
                 event.bookmarks.add(user)
+                event.bookmarked = True
                 return Response({}, status=status.HTTP_201_CREATED)
             except Exception as ex:
                 return Response({'message': ex.args[0]})
         elif request.method == "DELETE":
             try:
                 event.bookmarks.remove(user)
+                event.bookmarked = False
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
             except Exception as ex:
                 return Response({'message': ex.args[0]})
+
+    @action(methods=['get'], detail=False)
+    def mybookmarks(self, request, pk=None):
+        """Managing users listing bookmarked events"""
+        user = request.auth.user
+        events = user.bookmarks
+        try:
+            serializer = EventSerializer(
+                events, many=True, context={'request': request})
+            return Response(serializer.data)
+        except Exception as ex:
+            return Response({'message': ex.args[0]})
 
     @action(methods=['get'], detail=False)
     def myevents(self, request, pk=None):
@@ -85,6 +99,11 @@ class EventView(ViewSet):
         try:
             event = Event.objects.get(pk=pk)
             try:
+                Bookmark.objects.get(event=event, user=user)
+                event.bookmarked = True
+            except Bookmark.DoesNotExist:
+                event.bookmarked = False
+            try:
                 Host.objects.get(event=event, user=user)
                 event.organizers = True
             except Host.DoesNotExist:
@@ -119,19 +138,15 @@ class EventView(ViewSet):
 
     def destroy(self, request, pk=None):
         """Handle DELETE requests for a single event
-
         Returns:
             Response -- 200, 404, or 500 status code
         """
         try:
             event = Event.objects.get(pk=pk)
             event.delete()
-
             return Response({}, status=status.HTTP_204_NO_CONTENT)
-
         except Event.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
-
         except Exception as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -149,14 +164,13 @@ class EventView(ViewSet):
                 Q(cost__icontains=search_text) |
                 Q(datetime__icontains=search_text)
             )
-        for event in events:
-            event.bookmarked = None
-            try:
-                Bookmark.objects.get(event=event, user=user)
-                event.bookmarked = True
-            except Bookmark.DoesNotExist:
-                event.bookmarked = False
-
+            for event in events:
+                event.bookmarked = None
+                try:
+                    Bookmark.objects.get(event=event, user=user)
+                    event.bookmarked = True
+                except Bookmark.DoesNotExist:
+                    event.bookmarked = False
             # game = self.request.query_params.get('gameId', None)
             # if game is not None:
             #     events = events.filter(game__id=game)
@@ -186,6 +200,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('id', 'title', 'datetime',
+        fields = ['id', 'title', 'datetime',
                   'description', 'location', 'cost', 'address',
-                  'hosts', 'hostname', 'topics', 'bookmarked', 'organizers')
+                  'hosts', 'hostname', 'topics', 'bookmarks',
+                  'bookmarked', 'organizers']
