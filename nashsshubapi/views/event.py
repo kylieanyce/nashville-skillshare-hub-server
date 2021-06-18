@@ -13,7 +13,7 @@ from nashsshubapi.models import Event, Host, Bookmark, Topic
 
 class EventView(ViewSet):
     """Nashville SkillShare Hub events"""
-    @action(methods=['post', 'delete'], detail=True)
+    @action(methods=['get', 'post', 'delete'], detail=True)
     # detail=True is for using the current action on a single event
     # detail=False is for using the action on a list of events
     def bookmark(self, request, pk=None):
@@ -36,6 +36,20 @@ class EventView(ViewSet):
             try:
                 event.bookmarks.remove(user)
                 return Response(None, status=status.HTTP_204_NO_CONTENT)
+            except Exception as ex:
+                return Response({'message': ex.args[0]})
+
+    @action(methods=['get'], detail=False)
+    def mybookmarks(self, request, pk=None):
+        """Managing users listing bookmarked events"""
+        user = request.auth.user
+        events = user.events
+        if request.method == "GET":
+            try:
+                events.bookmarks.list(user)
+                serializer = EventSerializer(
+                    events, many=True, context={'request': request})
+                return Response(serializer.data)
             except Exception as ex:
                 return Response({'message': ex.args[0]})
 
