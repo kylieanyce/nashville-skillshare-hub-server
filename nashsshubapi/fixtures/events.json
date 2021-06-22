@@ -19,7 +19,7 @@
         "pk": 2,
         "fields": {
             "title": "Cheap and Healthy Meal Prep",
-            "datetime": "2021-06-25 12:00:00",
+            "datetime": "2021-06-25 13:00:00",
             "cost": "Free with canned good donation",
             "location": "Elk's Lodge",
             "address": "45 Russel Street",
@@ -54,8 +54,68 @@
             "location": "Shelby Park Community Center",
             "address": "2000 Shelby Ave",
             "description": "Spanish for beginners! Open to all.",
-            "hostname": "Spanish Man",
+            "hostname": "Eduardo Riviera",
             "topics": [6],
+            "bookmarks": []
+        }
+    },
+    {
+        "model": "nashsshubapi.event",
+        "pk": 5,
+        "fields": {
+            "title": "Garden Basics 101",
+            "datetime": "2021-07-18 08:00:00",
+            "cost": "free",
+            "location": "Nashville Community Garden",
+            "address": "16 Church Ave",
+            "description": "Join us in our community garden to learn the basics of vegetable gardening. Event will last two hours long. At the end, we will be giving out several varieties of tomato plants. Be sure to bring plenty of water and sunscreen. Gardening gloves and sturdy shoes are a plus.",
+            "hostname": "Nashville Food Project",
+            "topics": [5],
+            "bookmarks": []
+        }
+    },
+    {
+        "model": "nashsshubapi.event",
+        "pk": 6,
+        "fields": {
+            "title": "Free Tax Help",
+            "datetime": "2021-04-09 18:00:00",
+            "cost": "Free",
+            "location": "Shelby Park Community Center",
+            "address": "2000 Shelby Ave",
+            "description": "H&R Block will be hosting a two hour event at the Shelby Park Community Center for tax help. Please bring all of your tax forms and receipts you may need. Mask required.",
+            "hostname": "H&R Block",
+            "topics": [4],
+            "bookmarks": []
+        }
+    },
+    {
+        "model": "nashsshubapi.event",
+        "pk": 7,
+        "fields": {
+            "title": "Environmentally Safe Home Repair",
+            "datetime": "2021-07-12 10:00:00",
+            "cost": "Free",
+            "location": "Cook's Building Supply",
+            "address": "789 Russell Street",
+            "description": "With so many new homeowners during the pandemic housing boom, Cook's wants to promote safe and environmentally friendly home repair. We will be going over different materials that are sturdy and safe, practices that are environmentally friendly, and providing a list of wholesalers.",
+            "hostname": "Cook's Building Supply",
+            "topics": [2],
+            "bookmarks": []
+        }
+    },
+    {
+        "model": "nashsshubapi.event",
+        "pk": 8,
+        "fields": {
+            "title": "Easy Composting",
+            "datetime": "2021-06-29 9:00:00",
+            "cost": "5",
+            "location": "Nashville Community Garden",
+            "address": "2000 Shelby Ave",
+            "description": "This kid friendly event will be going over many ways of easy composting! We will talk about why composting is important and how to build several different varieties of compost bins. Come with garden clothes on.",
+            "hostname": "Nashville Foodscapes",
+            "topics": [5],
             "bookmarks": []
         }
     }
