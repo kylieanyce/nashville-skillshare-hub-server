@@ -1,0 +1,1 @@
+web: gunicorn nashsshub.wsgi --log-file -
