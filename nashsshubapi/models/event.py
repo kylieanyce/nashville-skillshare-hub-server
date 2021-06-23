@@ -17,6 +17,9 @@ class Event(models.Model):
     bookmarks = models.ManyToManyField(
         User, through="Bookmark", related_name="bookmarks")
 
+    # sets a new property onto Event object called 'bookmarked' that
+    # changes between true and false to determine if more custom
+    # action must be taken, ie: looking at the bookmarks property
     @property
     def bookmarked(self):
         return self.__bookmarked
@@ -25,6 +28,7 @@ class Event(models.Model):
     def bookmarked(self, value):
         self.__bookmarked = value
 
+    # same as above but with organizers/hosts
     @property
     def organizers(self):
         return self.__organizers

@@ -13,7 +13,7 @@ from nashsshubapi.models import Event, Host, Bookmark, Topic
 
 class EventView(ViewSet):
     """Nashville SkillShare Hub events"""
-    @action(methods=['get', 'post', 'delete'], detail=True)
+    @action(methods=['post', 'delete'], detail=True)
     # detail=True is for using the current action on a single event
     # detail=False is for using the action on a list of events
     def bookmark(self, request, pk=None):
